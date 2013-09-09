@@ -27,6 +27,8 @@ class localbackups(
     $backup_dir = '/var/backups/local'
 )
 {
+    include localbackups::params
+
     # On RedHat/CentOS the /var/backups directory does not exist. Puppet 
     # can't recursively create missing parent directories as discussed here:
     #
@@ -47,11 +49,9 @@ class localbackups(
         name => '/var/backups',
         ensure => directory,
         owner => root,
-        group => root,
+        group => "${::localbackups::params::admingroup}",
         mode => 755,
     }
-
-    include localbackups::params
 
     file { 'localbackups-local':
         name => "$backup_dir",
