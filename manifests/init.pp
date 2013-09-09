@@ -51,11 +51,13 @@ class localbackups(
         mode => 755,
     }
 
+    include localbackups::params
+
     file { 'localbackups-local':
         name => "$backup_dir",
         ensure => directory,
         owner => root,
-        group => root,
+        group => "${::localbackups::params::admingroup}",
         mode => 750,
         require => File['localbackups-backups'],
     }
