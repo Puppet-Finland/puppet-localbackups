@@ -29,7 +29,7 @@ class localbackups(
 {
 
 # Rationale for this is explained in init.pp of the sshd module
-if hiera('manage_localbackups') != 'false' {
+if hiera('manage_localbackups', 'true') != 'false' {
 
     include localbackups::params
 
