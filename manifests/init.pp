@@ -27,6 +27,10 @@ class localbackups(
     $backup_dir = '/var/backups/local'
 )
 {
+
+# Rationale for this is explained in init.pp of the sshd module
+if hiera('manage_localbackups') != 'false' {
+
     include localbackups::params
 
     # On RedHat/CentOS the /var/backups directory does not exist. Puppet 
@@ -61,5 +65,5 @@ class localbackups(
         mode => 750,
         require => File['localbackups-backups'],
     }
-
+}
 }
