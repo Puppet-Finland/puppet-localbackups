@@ -12,7 +12,7 @@
 #
 # == Examples
 #
-# class { 'localbackups': }
+#   class { 'localbackups': }
 #
 # == Authors
 #
@@ -20,8 +20,7 @@
 #
 # == License
 #
-# BSD-lisence
-# See file LICENSE for details
+# BSD-license. See file LICENSE for details.
 #
 class localbackups(
     $backup_dir = '/var/backups/local'
