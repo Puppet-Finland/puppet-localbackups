@@ -7,6 +7,9 @@
 #
 # == Parameters
 #
+# [*manage*]
+#   Whether to manage localbackups with Puppet or not. Valid values are 'yes' 
+#   (default) and 'no'.
 # [*backup_dir*]
 #   Path to the backup directory. Defaults to /var/backups/local.
 #
@@ -22,15 +25,16 @@
 #
 # BSD-license. See file LICENSE for details.
 #
-class localbackups(
+class localbackups
+(
+    $manage = 'yes',
     $backup_dir = '/var/backups/local'
 )
 {
 
-# Rationale for this is explained in init.pp of the sshd module
-if hiera('manage_localbackups', 'true') != 'false' {
+if $manage == 'yes' {
 
-    include localbackups::params
+    include ::localbackups::params
 
     # On RedHat/CentOS the /var/backups directory does not exist. Puppet 
     # can't recursively create missing parent directories as discussed here:
@@ -49,19 +53,19 @@ if hiera('manage_localbackups', 'true') != 'false' {
     # redundant directory.
 
     file { 'localbackups-backups':
-        name => '/var/backups',
         ensure => directory,
-        owner => root,
-        group => "${::localbackups::params::admingroup}",
-        mode => 755,
+        name   => '/var/backups',
+        owner  => $::os::params::adminuser,
+        group  => $::os::params::admingroup,
+        mode   => '0755',
     }
 
     file { 'localbackups-local':
-        name => "$backup_dir",
-        ensure => directory,
-        owner => root,
-        group => "${::localbackups::params::admingroup}",
-        mode => 750,
+        ensure  => directory,
+        name    => $backup_dir,
+        owner   => $::os::params::adminuser,
+        group   => $::os::params::admingroup,
+        mode    => '0750',
         require => File['localbackups-backups'],
     }
 }

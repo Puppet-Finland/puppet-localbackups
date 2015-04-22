@@ -1,6 +1,6 @@
 {
   "name": "puppetfinland-localbackups",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "author": "Puppet-Finland team",
   "license": "BSD license",
   "summary": "Prepare system for taking local backups such as LDAP or database dumps",

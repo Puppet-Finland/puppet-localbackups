@@ -5,18 +5,14 @@
 #
 class localbackups::params {
 
+    include ::os::params
+
     case $::osfamily {
-        'RedHat': {
-            $admingroup = 'root'
-        }
-        'Debian': {
-            $admingroup = 'root'
-        }
-        'FreeBSD': {
-            $admingroup = 'wheel'
-        }
+        'RedHat': { }
+        'Debian': { }
+        'FreeBSD': { }
         default: {
-            $admingroup = 'root'
+            fail("Unsupported operating system ${::osfamily}")
         }
     }
 }
