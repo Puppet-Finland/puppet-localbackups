@@ -65,7 +65,7 @@ if $manage {
         name    => $backup_dir,
         owner   => $::os::params::adminuser,
         group   => $::os::params::admingroup,
-        mode    => '0750',
+        mode    => '0751',
         require => File['localbackups-backups'],
     }
 }
