@@ -8,14 +8,14 @@
 # == Parameters
 #
 # [*manage*]
-#   Whether to manage localbackups with Puppet or not. Valid values are 'yes' 
-#   (default) and 'no'.
+#   Whether to manage localbackups with Puppet or not. Valid values are true
+#   (default) and false.
 # [*backup_dir*]
 #   Path to the backup directory. Defaults to /var/backups/local.
 #
 # == Examples
 #
-#   class { 'localbackups': }
+#   class { '::localbackups': }
 #
 # == Authors
 #
@@ -27,12 +27,12 @@
 #
 class localbackups
 (
-    $manage = 'yes',
-    $backup_dir = '/var/backups/local'
+    Boolean $manage = true,
+    String  $backup_dir = '/var/backups/local'
 )
 {
 
-if $manage == 'yes' {
+if $manage {
 
     include ::localbackups::params
 
