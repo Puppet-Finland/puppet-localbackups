@@ -1,26 +1,19 @@
 # localbackups
 
 A Puppet module for creating a directory for local backups (e.g. database, LDAP 
-or SVN dumps)
+or SVN dumps).
 
 # Module usage
 
-* [Class: localbackups](manifests/init.pp)
+Ensure that the default backup directory (/var/backups/local) is present and has 
+correct permissions:
 
-# Dependencies
+    include ::localbackups
 
-See [metadata.json](metadata.json).
+Manage a custom backup directory instead:
 
-# Operating system support
+    class { '::localbackups':
+      backup_dir => '/data/backups',
+    }
 
-This module has been tested on
-
-* Ubuntu 12.04, 14.04
-* Debian 7 and 8
-* CentOS 6 and 7
-* FreeBSD 9 and 10
-
-All UNIXy operating systems should work out of the box or with small 
-modifications.
-
-For details see [params.pp](manifests/params.pp).
+For details see [init.pp](manifests/init.pp).
